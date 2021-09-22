@@ -1,6 +1,7 @@
 ﻿import React, { Component } from 'react';
+import { Form, FormGroup, Label, Input } from 'reactstrap';
 
-export class Form extends Component {
+export class ShopForm extends Component {
 
     constructor(props) {
         super(props);
@@ -24,17 +25,18 @@ export class Form extends Component {
         return (
             <div>
                 <h2>{this.state.inputvalue}</h2>
-                <form onSubmit={this.handleSubmit}>
-                    <label>
-                        Shop:
-                        <input type="text" value={this.state.inputvalue} onChange={this.handleChange} />
-                    </label>
-                    <input type="submit" value="Submit" />
-                </form>
+                <Form onSubmit={this.handleSubmit}>
+                    <FormGroup> 
+                        <Label>Shop</Label>                        
+                        <Input type="text" value={this.state.inputvalue} onChange={this.handleChange} />
+                    </FormGroup>
+                    <FormGroup>
+                        <input type="submit" value="Submit" />
+                    </FormGroup>
+                </Form>
                 <h2>{this.submitted}</h2>
             </div>
             )
-
     }
 }
-export default Form;
+export default ShopForm;

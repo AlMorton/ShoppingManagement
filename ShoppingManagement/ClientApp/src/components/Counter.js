@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Form } from './Form';
 
 export class Counter extends Component {
   static displayName = Counter.name;
