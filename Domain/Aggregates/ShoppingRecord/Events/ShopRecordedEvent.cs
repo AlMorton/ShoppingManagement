@@ -10,5 +10,4 @@ namespace Domain.Aggregates.ShoppingRecord.Events
         }
         public int ShopId { get; }
     }
-    
 }

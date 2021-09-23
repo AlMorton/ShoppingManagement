@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Domain.Aggregates.ShoppingRecord.Events;
 using Domain.Entities;
+using Domain.Interfaces;
 
 namespace Domain.Aggregates.ShoppingRecord
 {
@@ -20,12 +22,12 @@ namespace Domain.Aggregates.ShoppingRecord
     }
     public class ShoppingRecordAggregate : IRecordShop, IRecordDateAndTime, IRecordTotalAmount
     {
-        private Queue _eventQueue = new Queue();
-        public Person _person;       
+        private Queue<IDomainEvent> _eventQueue = new Queue<IDomainEvent>();
+        private readonly Person _person;       
 
         public ShoppingRecordAggregate(Person person)
         {
-            _person = person;
+            _person = person;            
         }
 
         public IRecordDateAndTime RecordShop(int shopId)
@@ -36,16 +38,16 @@ namespace Domain.Aggregates.ShoppingRecord
 
         public IRecordTotalAmount RecordDateAndTime(DateTimeOffset dateAndTime)
         {
-            _eventQueue.Enqueue(dateAndTime);
+            _eventQueue.Enqueue(new DateTimeRecordedEvent(dateAndTime));
             return this;
         }
 
         public void RecordTotalAmmountSpent(decimal totalAmount)
         {
-            _eventQueue.Enqueue(totalAmount);            
+            _eventQueue.Enqueue(new TotalAmountRecordedEvent(totalAmount));            
         }
 
-        public Queue Save()
+        public Queue<IDomainEvent> GetEvents()
         {
             return _eventQueue;
         }

@@ -14,19 +14,20 @@ namespace Domain.Tests.Aggregates
         public void TestFluentAPI()
         {
             var shopping = new ShoppingRecordAggregate(new Person("John", "Smith"));
-            var shop = 1;
+            var shopId = 1;
             var date = DateTimeOffset.UtcNow;
             var amount = 5.00m;
-            shopping.RecordShop(shop)
+            shopping.RecordShop(shopId)
                     .RecordDateAndTime(date)
                     .RecordTotalAmmountSpent(amount);
-            var events = shopping.Save();
+            var events = shopping.GetEvents();
 
             var shopEvent = (ShopRecordedEvent)events.Dequeue();
             Assert.IsNotNull(shopEvent);
-            var dateRecorded = (DateTimeOffset)events.Dequeue();
+            Assert.AreEqual(shopId,shopEvent.ShopId);
+            var dateRecorded = (DateTimeRecordedEvent)events.Dequeue();
             Assert.IsNotNull(dateRecorded);
-            var totalAmount = (decimal)events.Dequeue();
+            var totalAmount = (TotalAmountRecordedEvent)events.Dequeue();
             Assert.IsNotNull(totalAmount);
         }
 
