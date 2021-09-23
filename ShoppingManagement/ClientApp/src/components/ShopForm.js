@@ -1,5 +1,5 @@
 ﻿import React, { Component } from 'react';
-import { Form, FormGroup, Label, Input } from 'reactstrap';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 export class ShopForm extends Component {
 
@@ -29,6 +29,7 @@ export class ShopForm extends Component {
                     <FormGroup> 
                         <Label>Shop</Label>                        
                         <Input type="text" value={this.state.inputvalue} onChange={this.handleChange} />
+                        <Button color="primary">Add new shop</Button>{' '}
                     </FormGroup>
                     <FormGroup>
                         <input type="submit" value="Submit" />
