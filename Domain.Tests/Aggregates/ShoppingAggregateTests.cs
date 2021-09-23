@@ -1,6 +1,5 @@
 ﻿using System;
 using Domain.Entities;
-using Domain.Interfaces;
 using NUnit.Framework;
 
 namespace Domain.Tests.Aggregates
@@ -11,17 +10,11 @@ namespace Domain.Tests.Aggregates
         [Test]
         public void CreateEventTest()
         {
-            var shopRecordedEvent = new ShopRecordedEvent(shopId:1);
-        }
-    }
+            var shopId = 1;
+            var shopRecordedEvent = new ShopRecordedEvent(shopId);
 
-    public class ShopRecordedEvent : IDomainEvent
-    {
-        public ShopRecordedEvent(int shopId)
-        {
-            ShopId = shopId;
+            Assert.AreEqual(shopId, shopRecordedEvent.ShopId);
         }
-        public int ShopId { get; }
     }
 
     [TestFixture]
@@ -44,47 +37,5 @@ namespace Domain.Tests.Aggregates
             shopping.RecordShop(1);
         }
     }
-    public interface IRecordShop
-    {
-        IRecordDateAndTime RecordShop(int shop);
-
-    }
-    public interface IRecordDateAndTime
-    {
-        IRecordTotalAmount RecordDateAndTime(DateTimeOffset dateAndTime);
-    }
-    public interface IRecordTotalAmount
-    {
-        void RecordTotalAmmountSpent(decimal totalAmount);
-    }
-
-    public class ShoppingRecordAggregate : IRecordShop, IRecordDateAndTime, IRecordTotalAmount
-    {
-        public ShopRecordedEvent Shop { get; private set; }
-        private Person _person;
-        private DateTimeOffset _dateAndTime;
-        private decimal _totalAmount;
-
-        public ShoppingRecordAggregate(Person person)
-        {
-            _person = person;
-        }
-
-        public IRecordDateAndTime RecordShop(int shop)
-        {
-            Shop = new ShopRecordedEvent(shop);
-            return this;
-        }
-
-        public IRecordTotalAmount RecordDateAndTime(DateTimeOffset dateAndTime)
-        {
-            _dateAndTime = dateAndTime;
-            return this;
-        }
-
-        public void RecordTotalAmmountSpent(decimal totalAmount)
-        {
-            _totalAmount = totalAmount;
-        }
-    }
+    
 }
