@@ -1,4 +1,6 @@
 ﻿using System;
+using Domain.Aggregates.ShoppingRecord;
+using Domain.Aggregates.ShoppingRecord.Events;
 using Domain.Entities;
 using NUnit.Framework;
 
