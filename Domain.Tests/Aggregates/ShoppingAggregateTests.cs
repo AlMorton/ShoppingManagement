@@ -6,18 +6,6 @@ using NUnit.Framework;
 
 namespace Domain.Tests.Aggregates
 {
-    [TestFixture]
-    public class RecordShoppingDomainEventTests
-    {
-        [Test]
-        public void CreateEventTest()
-        {
-            var shopId = 1;
-            var shopRecordedEvent = new ShopRecordedEvent(shopId);
-
-            Assert.AreEqual(shopId, shopRecordedEvent.ShopId);
-        }
-    }
 
     [TestFixture]
     public class ShoppingAggregateTests
@@ -27,9 +15,19 @@ namespace Domain.Tests.Aggregates
         {
             var shopping = new ShoppingRecordAggregate(new Person("John", "Smith"));
             var shop = 1;
-            shopping.RecordShop(shop).RecordDateAndTime(DateTimeOffset.UtcNow).RecordTotalAmmountSpent(5.00m);
+            var date = DateTimeOffset.UtcNow;
+            var amount = 5.00m;
+            shopping.RecordShop(shop)
+                    .RecordDateAndTime(date)
+                    .RecordTotalAmmountSpent(amount);
+            var events = shopping.Save();
 
-            Assert.AreEqual(shop, shopping.Shop.ShopId);
+            var shopEvent = (ShopRecordedEvent)events.Dequeue();
+            Assert.IsNotNull(shopEvent);
+            var dateRecorded = (DateTimeOffset)events.Dequeue();
+            Assert.IsNotNull(dateRecorded);
+            var totalAmount = (decimal)events.Dequeue();
+            Assert.IsNotNull(totalAmount);
         }
 
         [Test]
