@@ -11,15 +11,17 @@ namespace Domain.Tests.Aggregates
         [Test]
         public void CreateEventTest()
         {
-            var shopRecordedEvent = new ShopRecordedEvent();
+            var shopRecordedEvent = new ShopRecordedEvent(shopId:1);
         }
     }
 
     public class ShopRecordedEvent : IDomainEvent
     {
-        public ShopRecordedEvent()
+        public ShopRecordedEvent(int shopId)
         {
+            ShopId = shopId;
         }
+        public int ShopId { get; }
     }
 
     [TestFixture]
@@ -29,20 +31,22 @@ namespace Domain.Tests.Aggregates
         public void TestFluentAPI()
         {
             var shopping = new ShoppingRecordAggregate(new Person("John", "Smith"));
-            var shop = new Shop("MyBasket");
-            shopping.RecordShop(shop).RecordDateAndTime(DateTimeOffset.UtcNow).RecordTotalAmmountSpent(5.00m);                        
+            var shop = 1;
+            shopping.RecordShop(shop).RecordDateAndTime(DateTimeOffset.UtcNow).RecordTotalAmmountSpent(5.00m);
+
+            Assert.AreEqual(shop, shopping.Shop.ShopId);
         }
 
         [Test]
         public void TestDomainEvents()
         {
             var shopping = new ShoppingRecordAggregate(new Person("John", "Smith"));
-            shopping.RecordShop(new Shop("Test"));
+            shopping.RecordShop(1);
         }
     }
     public interface IRecordShop
     {
-        IRecordDateAndTime RecordShop(Shop shop);
+        IRecordDateAndTime RecordShop(int shop);
 
     }
     public interface IRecordDateAndTime
@@ -56,7 +60,7 @@ namespace Domain.Tests.Aggregates
 
     public class ShoppingRecordAggregate : IRecordShop, IRecordDateAndTime, IRecordTotalAmount
     {
-        private Shop _shop;
+        public ShopRecordedEvent Shop { get; private set; }
         private Person _person;
         private DateTimeOffset _dateAndTime;
         private decimal _totalAmount;
@@ -66,9 +70,9 @@ namespace Domain.Tests.Aggregates
             _person = person;
         }
 
-        public IRecordDateAndTime RecordShop(Shop shop)
+        public IRecordDateAndTime RecordShop(int shop)
         {
-            _shop = shop;
+            Shop = new ShopRecordedEvent(shop);
             return this;
         }
 
