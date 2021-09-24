@@ -15,14 +15,7 @@ namespace Domain.Entities
             Name = name;
         }
 
-        public Shop RecordShop()
-        {
-            return this;
-        }
-
-        public Shop RecordNewShop(string name)
-        {
-            return new Shop(name);
-        }
+        public Shop()
+        {}
     }
 }
