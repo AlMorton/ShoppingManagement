@@ -1,14 +1,24 @@
 ﻿import React, { Component } from 'react';
 import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
-export class ShopForm extends Component {
+interface IProps {
+    
+}
 
-    constructor(props) {
+interface IState {
+    inputvalue: string
+}
+
+export class ShopForm extends Component<IProps,IState> {
+
+    private submitted: string;    
+
+    constructor(props: IProps) {
         super(props);
-        console.log(props);
+        
         this.submitted = '';
         
-        this.state = {inputvalue: ''};
+        this.state = { inputvalue: ''};
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
@@ -17,7 +27,7 @@ export class ShopForm extends Component {
         this.submitted = 'submitted';
     }
 
-    handleChange(event) {       
+    handleChange(event:any) {
         this.setState({ inputvalue: event.target.value });
     }
 
