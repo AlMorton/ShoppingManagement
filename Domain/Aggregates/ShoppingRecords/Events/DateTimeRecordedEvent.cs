@@ -1,7 +1,7 @@
 ﻿using Domain.Interfaces;
 using System;
 
-namespace Domain.Aggregates.ShoppingRecord.Events
+namespace Domain.Aggregates.ShoppingRecords.Events
 {
     public class DateTimeRecordedEvent : IDomainEvent
     {

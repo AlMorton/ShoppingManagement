@@ -1,6 +1,6 @@
 ﻿using Domain.Interfaces;
 
-namespace Domain.Aggregates.ShoppingRecord.Events
+namespace Domain.Aggregates.ShoppingRecords.Events
 {
     public class TotalAmountRecordedEvent : IDomainEvent
     {

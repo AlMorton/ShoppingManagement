@@ -1,6 +1,6 @@
 ﻿using System;
-using Domain.Aggregates.ShoppingRecord;
-using Domain.Aggregates.ShoppingRecord.Events;
+using Domain.Aggregates.ShoppingRecords;
+using Domain.Aggregates.ShoppingRecords.Events;
 using Domain.Entities;
 using NUnit.Framework;
 
@@ -13,27 +13,30 @@ namespace Domain.Tests.Aggregates
         [Test]
         public void TestFluentAPI()
         {
-            var shopping = new ShoppingRecordBuilder(new Person("John", "Smith"));
-            var shopId = 1;
+            var shopping = new ShoppingRecordBuilder();
+            var shop = new Shop();
             var date = DateTimeOffset.UtcNow;
             var amount = 5.00m;
-            shopping.RecordShop(shopId)
+            shopping.RecordShop(shop)
                     .RecordDateAndTime(date)
                     .RecordTotalAmmountSpent(amount);
-            var events = shopping.GetEvents();
 
-            var shopEvent = (ShopRecordedEvent)events.Dequeue();
-            Assert.IsNotNull(shopEvent);
-            Assert.AreEqual(shopId,shopEvent.ShopId);
+            var shoppingRecord = shopping.Build();
 
-            var dateRecorded = (DateTimeRecordedEvent)events.Dequeue();
-            Assert.IsNotNull(dateRecorded);
-            Assert.AreEqual(date, dateRecorded.Date);
-
-            var totalAmount = (TotalAmountRecordedEvent)events.Dequeue();
-            Assert.IsNotNull(totalAmount);
-            Assert.AreEqual(amount, totalAmount.Total);
+            Assert.IsNotNull(shoppingRecord);
+            Assert.AreEqual(shop, shoppingRecord.Shop);
+            Assert.AreEqual(date, shoppingRecord.Date);
+            Assert.AreEqual(amount, shoppingRecord.Amount);            
         }
     }
-    
+
+    [TestFixture]
+    public class ShoppingRecordTests
+    {
+        [Test]
+        public void CTOR_Test()
+        {
+            var shoppingRecord = new ShoppingRecord(shop: new Shop(), date: DateTimeOffset.UtcNow, amount:10m);
+        }
+    }
 }

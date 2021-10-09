@@ -1,4 +1,5 @@
-﻿using Domain.Aggregates.ShoppingRecord.Events;
+﻿using Domain.Aggregates.ShoppingRecords.Events;
+using Domain.Entities;
 using NUnit.Framework;
 using System;
 
@@ -10,10 +11,10 @@ namespace Domain.Tests.Aggregates
         [Test]
         public void CreateEventTest()
         {
-            var shopId = 1;
-            var shopRecordedEvent = new ShopRecordedEvent(shopId);
+            var shop = new Shop();
+            var shopRecordedEvent = new ShopRecordedEvent(shop);
 
-            Assert.AreEqual(shopId, shopRecordedEvent.ShopId);
+            Assert.AreEqual(shop, shopRecordedEvent.Shop);
         }
     }
 
