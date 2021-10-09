@@ -7,10 +7,10 @@ namespace Domain.Aggregates.ShoppingRecord.Events
     {
         public DateTimeRecordedEvent(DateTimeOffset utcNow)
         {
-            UtcNow = utcNow;
+            Date = utcNow;
         }
 
-        public DateTimeOffset UtcNow { get; }
+        public DateTimeOffset Date { get; }
     }
 
 }

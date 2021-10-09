@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.31702.278
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31717.71
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ShoppingManagement", "ShoppingManagement\ShoppingManagement.csproj", "{E04814EF-675D-49B6-8E82-92979ACCA207}"
 EndProject
@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{DAC6142D-AEDB-4DF7-A052-E82B938D3A4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{7BB49150-9E95-4F85-A6D3-A546F3CD4C39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain.Tests", "Domain.Tests\Domain.Tests.csproj", "{7BB49150-9E95-4F85-A6D3-A546F3CD4C39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application", "Application\Application.csproj", "{749F17C9-B221-40ED-8159-646A11F29E28}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\Application.csproj", "{749F17C9-B221-40ED-8159-646A11F29E28}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Application.Tests", "Application.Tests\Application.Tests.csproj", "{5854AD3F-A084-4627-8305-7754B489DFD3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,12 +43,17 @@ Global
 		{749F17C9-B221-40ED-8159-646A11F29E28}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{749F17C9-B221-40ED-8159-646A11F29E28}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{749F17C9-B221-40ED-8159-646A11F29E28}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5854AD3F-A084-4627-8305-7754B489DFD3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5854AD3F-A084-4627-8305-7754B489DFD3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5854AD3F-A084-4627-8305-7754B489DFD3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5854AD3F-A084-4627-8305-7754B489DFD3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{7BB49150-9E95-4F85-A6D3-A546F3CD4C39} = {DAC6142D-AEDB-4DF7-A052-E82B938D3A4D}
+		{5854AD3F-A084-4627-8305-7754B489DFD3} = {DAC6142D-AEDB-4DF7-A052-E82B938D3A4D}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A85C10E7-DC94-4A8E-BCDF-E4575DE92851}

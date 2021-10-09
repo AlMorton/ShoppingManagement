@@ -20,12 +20,16 @@ namespace Domain.Aggregates.ShoppingRecord
     {
         void RecordTotalAmmountSpent(decimal totalAmount);
     }
-    public class ShoppingRecordAggregate : IRecordShop, IRecordDateAndTime, IRecordTotalAmount
+    
+    public class ShoppingRecordBuilder : IRecordShop, IRecordDateAndTime, IRecordTotalAmount
     {
         private Queue<IDomainEvent> _eventQueue = new Queue<IDomainEvent>();
-        private readonly Person _person;       
+        private readonly Person _person;
+        private readonly Shop _shop;
+        private readonly decimal _totalAmount;
+        private readonly DateTimeOffset _date;
 
-        public ShoppingRecordAggregate(Person person)
+        public ShoppingRecordBuilder(Person person)
         {
             _person = person;            
         }

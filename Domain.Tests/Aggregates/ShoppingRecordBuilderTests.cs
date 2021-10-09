@@ -8,12 +8,12 @@ namespace Domain.Tests.Aggregates
 {
 
     [TestFixture]
-    public class ShoppingAggregateTests
+    public class ShoppingRecordBuilderTests
     {
         [Test]
         public void TestFluentAPI()
         {
-            var shopping = new ShoppingRecordAggregate(new Person("John", "Smith"));
+            var shopping = new ShoppingRecordBuilder(new Person("John", "Smith"));
             var shopId = 1;
             var date = DateTimeOffset.UtcNow;
             var amount = 5.00m;
@@ -25,17 +25,14 @@ namespace Domain.Tests.Aggregates
             var shopEvent = (ShopRecordedEvent)events.Dequeue();
             Assert.IsNotNull(shopEvent);
             Assert.AreEqual(shopId,shopEvent.ShopId);
+
             var dateRecorded = (DateTimeRecordedEvent)events.Dequeue();
             Assert.IsNotNull(dateRecorded);
+            Assert.AreEqual(date, dateRecorded.Date);
+
             var totalAmount = (TotalAmountRecordedEvent)events.Dequeue();
             Assert.IsNotNull(totalAmount);
-        }
-
-        [Test]
-        public void TestDomainEvents()
-        {
-            var shopping = new ShoppingRecordAggregate(new Person("John", "Smith"));
-            shopping.RecordShop(1);
+            Assert.AreEqual(amount, totalAmount.Total);
         }
     }
     
