@@ -3,7 +3,7 @@ using Domain.Entities;
 
 namespace Domain.Aggregates.ShoppingRecords
 {
-    public class ShoppingRecord
+    public record ShoppingRecord
     {
         public ShoppingRecord(Shop shop, DateTimeOffset date, decimal amount)
         {

@@ -28,37 +28,37 @@ namespace Domain.Aggregates.ShoppingRecords
     
     public class ShoppingRecordBuilder : IRecordShop, IRecordDateAndTime, IRecordTotalAmount, IBuildRecord
     {
-        private Queue<IDomainEvent> _eventQueue = new Queue<IDomainEvent>();
+        private Queue _constructionQueue = new Queue();
       
         public ShoppingRecordBuilder()
         {}
 
         public IRecordDateAndTime RecordShop(Shop shop)
         {
-            _eventQueue.Enqueue(new ShopRecordedEvent(shop));
+            _constructionQueue.Enqueue(shop);
             return this;
         }
 
         public IRecordTotalAmount RecordDateAndTime(DateTimeOffset dateAndTime)
         {
-            _eventQueue.Enqueue(new DateTimeRecordedEvent(dateAndTime));
+            _constructionQueue.Enqueue(dateAndTime);
             return this;
         }
 
         public IBuildRecord RecordTotalAmmountSpent(decimal totalAmount)
         {
-            _eventQueue.Enqueue(new TotalAmountRecordedEvent(totalAmount));   
+            _constructionQueue.Enqueue(totalAmount);   
 
             return this;           
         }
 
         public ShoppingRecord Build()
         {
-            var shopEvent = (ShopRecordedEvent)_eventQueue.Dequeue();
-            var dateEvent = (DateTimeRecordedEvent)_eventQueue.Dequeue();
-            var amountEvent = (TotalAmountRecordedEvent)_eventQueue.Dequeue();
+            var shop = (Shop)_constructionQueue.Dequeue();
+            var date= (DateTimeOffset)_constructionQueue.Dequeue();
+            var amount = (decimal)_constructionQueue.Dequeue();
 
-            return new ShoppingRecord(shop: shopEvent.Shop, dateEvent.Date, amountEvent.Total);
+            return new ShoppingRecord(shop, date, amount);
         }
     }
 }
