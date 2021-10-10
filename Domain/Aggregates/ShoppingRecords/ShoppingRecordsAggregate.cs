@@ -22,12 +22,11 @@ namespace Domain.Aggregates.ShoppingRecords
 
         public void AddNewRecord(Shop shop, DateTimeOffset date, decimal amount)
         {
-            var record = _shoppingRecordBuilder.RecordShop(shop)
+            _records.Add(_shoppingRecordBuilder.RecordShop(shop)
                                   .RecordDateAndTime(date)
                                   .RecordTotalAmmountSpent(amount)
-                                  .Build();
-
-            _records.Add(record);
+                                  .Build()
+                         );
         }
     }
 }

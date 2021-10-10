@@ -29,14 +29,4 @@ namespace Domain.Tests.Aggregates
             Assert.AreEqual(amount, shoppingRecord.Amount);            
         }
     }
-
-    [TestFixture]
-    public class ShoppingRecordTests
-    {
-        [Test]
-        public void CTOR_Test()
-        {
-            var shoppingRecord = new ShoppingRecord(shop: new Shop(), date: DateTimeOffset.UtcNow, amount:10m);
-        }
-    }
 }
